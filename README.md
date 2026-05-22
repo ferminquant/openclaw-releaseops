@@ -9,6 +9,8 @@ This is the first product-led validation wedge for a ReleaseOps assistant:
 - content/demo artifact
 - later hosted beta for scheduled summaries, saved runbooks, and team history
 
+For full project context, see [PROJECT_CONTEXT.md](PROJECT_CONTEXT.md).
+
 ## First Tool
 
 `releaseops_failed_deploy_summary`
