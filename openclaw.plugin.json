@@ -1,0 +1,44 @@
+{
+  "id": "releaseops",
+  "name": "ReleaseOps",
+  "description": "Read-only release and deploy triage tools for GitHub Actions.",
+  "contracts": {
+    "tools": [
+      "releaseops_failed_deploy_summary"
+    ]
+  },
+  "toolMetadata": {
+    "releaseops_failed_deploy_summary": {
+      "optional": true
+    }
+  },
+  "activation": {
+    "onStartup": false
+  },
+  "configSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "githubTokenEnv": {
+        "type": "string",
+        "description": "Environment variable that contains a GitHub token. Defaults to GITHUB_TOKEN."
+      },
+      "defaultRepo": {
+        "type": "string",
+        "description": "Default GitHub repository in owner/name form."
+      },
+      "defaultWorkflow": {
+        "type": "string",
+        "description": "Default workflow id or workflow file name."
+      },
+      "defaultBranch": {
+        "type": "string",
+        "description": "Default branch to inspect when no run id is provided."
+      },
+      "runbookPath": {
+        "type": "string",
+        "description": "Optional local markdown runbook path used to seed rollback checklist output."
+      }
+    }
+  }
+}

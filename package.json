@@ -1,0 +1,29 @@
+{
+  "name": "@ferminquant/openclaw-releaseops",
+  "version": "0.1.0",
+  "private": true,
+  "description": "OpenClaw ReleaseOps plugin for read-only GitHub Actions deploy triage.",
+  "type": "module",
+  "main": "./index.js",
+  "scripts": {
+    "test": "node --test"
+  },
+  "keywords": [
+    "openclaw",
+    "openclaw-plugin",
+    "releaseops",
+    "github-actions",
+    "incidentops"
+  ],
+  "author": "Fermin Quant",
+  "license": "MIT",
+  "openclaw": {
+    "extensions": [
+      "./index.js"
+    ],
+    "compat": {
+      "pluginApi": ">=2026.3.24-beta.2",
+      "minGatewayVersion": "2026.3.24-beta.2"
+    }
+  }
+}
