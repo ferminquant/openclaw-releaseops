@@ -71,6 +71,14 @@ Restart the Gateway after install or config changes:
 openclaw gateway restart
 ```
 
+If the Gateway runs as a systemd user service, make sure the service environment
+contains the token before restarting when you want job log excerpts:
+
+```bash
+systemctl --user set-environment GITHUB_TOKEN="$(gh auth token)"
+openclaw gateway restart
+```
+
 ## Validated Demo
 
 Public demo repo:
@@ -99,6 +107,14 @@ Example prompt:
 
 ```text
 Use releaseops_failed_deploy_summary for ferminquant/releaseops-demo-failing-actions on workflow deploy.yml and branch main. Include the log excerpt.
+```
+
+Validated Gateway tool invocation:
+
+```text
+POST http://127.0.0.1:18789/tools/invoke
+tool: releaseops_failed_deploy_summary
+args: { repo, workflow, branch, includeLogExcerpt, logLines }
 ```
 
 ## GitHub Token

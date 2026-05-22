@@ -90,6 +90,12 @@ Current validation:
 - `openclaw plugins enable releaseops` passed
 - `openclaw plugins inspect releaseops --runtime --json` reported the plugin as
   loaded and exposing optional tool `releaseops_failed_deploy_summary`
+- local OpenClaw config now allowlists `releaseops_failed_deploy_summary`
+- local OpenClaw plugin config now defaults to the public demo repo, workflow,
+  branch, token env name, and rollback runbook path
+- Gateway was restarted after config changes
+- direct Gateway tool invocation through `POST /tools/invoke` passed with
+  `includeLogExcerpt: true`
 - a public demo repo was created:
   `https://github.com/ferminquant/releaseops-demo-failing-actions`
 - the live GitHub API path was tested against failed run:
@@ -99,6 +105,9 @@ Current validation:
   - failed job: `deploy-demo-service`
   - failed step: `Deploy to demo environment`
   - clearest signal: `Simulated deploy endpoint returned HTTP 503`
+- an `openclaw agent --agent main` chat invocation returned the expected
+  triage summary, but the Codex agent harness used shell execution rather than
+  exposing the plugin as a native model tool in the trace
 
 The tool must stay read-only:
 
@@ -154,9 +163,9 @@ Restart the Gateway after install/config changes.
 
 ## Next Recommended Work
 
-1. Verify the full chat-level OpenClaw path after allowing
-   `releaseops_failed_deploy_summary` in local OpenClaw config and restarting
-   the Gateway.
+1. Decide whether the validation story should rely on direct Gateway
+   `/tools/invoke`, or whether ReleaseOps needs to be exposed as a native tool
+   inside the Codex chat harness.
 2. Capture a short demo narrative using the public demo repo and validated run.
 3. Test one additional safe repository shape, such as a matrix job or a workflow
    with multiple failed jobs.
