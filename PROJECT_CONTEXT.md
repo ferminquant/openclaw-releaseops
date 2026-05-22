@@ -66,6 +66,8 @@ Current scaffold:
 - markdown formatter: `src/format.js`
 - log excerpt helper: `src/logs.js`
 - tests for log extraction: `test/logs.test.js`
+- tests for GitHub API summary behavior: `test/github-actions.test.js`
+- tests for user-facing markdown shape: `test/format.test.js`
 
 Current tool:
 
@@ -76,9 +78,27 @@ Tool behavior:
 - finds a failed GitHub Actions run
 - identifies failed jobs and failed steps
 - extracts relevant log lines
+- strips common GitHub Actions timestamp/runner noise from excerpts
+- redacts obvious token-shaped secrets from excerpts
 - returns likely cause guidance
 - returns next-check suggestions
 - returns a rollback checklist stub
+
+Current validation:
+
+- `openclaw plugins install --link /home/fermin/git/openclaw-releaseops` passed
+- `openclaw plugins enable releaseops` passed
+- `openclaw plugins inspect releaseops --runtime --json` reported the plugin as
+  loaded and exposing optional tool `releaseops_failed_deploy_summary`
+- a public demo repo was created:
+  `https://github.com/ferminquant/releaseops-demo-failing-actions`
+- the live GitHub API path was tested against failed run:
+  `https://github.com/ferminquant/releaseops-demo-failing-actions/actions/runs/26300685264`
+- the live summary correctly identified:
+  - workflow: `ReleaseOps Demo Deploy`
+  - failed job: `deploy-demo-service`
+  - failed step: `Deploy to demo environment`
+  - clearest signal: `Simulated deploy endpoint returned HTTP 503`
 
 The tool must stay read-only:
 
@@ -134,13 +154,14 @@ Restart the Gateway after install/config changes.
 
 ## Next Recommended Work
 
-1. Add focused tests for `src/github-actions.js` with mocked GitHub API
-   responses.
-2. Improve error handling and output shape before live install testing.
-3. Link-install into the local OpenClaw checkout and verify runtime inspection.
-4. Test against a safe public repo or a demo repo with a deliberately failing
-   workflow.
-5. Create demo content once the tool produces a credible summary.
+1. Verify the full chat-level OpenClaw path after allowing
+   `releaseops_failed_deploy_summary` in local OpenClaw config and restarting
+   the Gateway.
+2. Capture a short demo narrative using the public demo repo and validated run.
+3. Test one additional safe repository shape, such as a matrix job or a workflow
+   with multiple failed jobs.
+4. Decide whether the next product iteration should improve summarization depth
+   or focus on packaging/content for validation.
 
 ## Quality Bar
 

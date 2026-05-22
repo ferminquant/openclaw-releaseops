@@ -20,6 +20,7 @@ What it does:
 - finds a failed GitHub Actions run
 - identifies failed jobs and failed steps
 - extracts useful log lines
+- redacts obvious token-shaped secrets from excerpts
 - returns next-check suggestions
 - adds a rollback checklist stub
 
@@ -68,6 +69,36 @@ Restart the Gateway after install or config changes:
 
 ```bash
 openclaw gateway restart
+```
+
+## Validated Demo
+
+Public demo repo:
+
+<https://github.com/ferminquant/releaseops-demo-failing-actions>
+
+The demo workflow intentionally fails in a synthetic deploy step. It does not
+use secrets, real infrastructure, customer data, or private incident logs.
+
+Known validated run:
+
+<https://github.com/ferminquant/releaseops-demo-failing-actions/actions/runs/26300685264>
+
+The expected summary starts with:
+
+```text
+# ReleaseOps Failed Deploy Triage
+
+Status: failure
+Likely cause: The run first failed in step "Deploy to demo environment". The clearest log signal is: "Simulated deploy endpoint returned HTTP 503".
+First failed job: deploy-demo-service
+First failed step: Deploy to demo environment
+```
+
+Example prompt:
+
+```text
+Use releaseops_failed_deploy_summary for ferminquant/releaseops-demo-failing-actions on workflow deploy.yml and branch main. Include the log excerpt.
 ```
 
 ## GitHub Token

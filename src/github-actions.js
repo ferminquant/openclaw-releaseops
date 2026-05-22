@@ -2,15 +2,17 @@ import { extractRelevantLogLines } from "./logs.js";
 
 const GITHUB_API = "https://api.github.com";
 
-export async function summarizeFailedDeploy({ params, config, env, fetchImpl = fetch }) {
+export async function summarizeFailedDeploy({ params = {}, config = {}, env = {}, fetchImpl = fetch } = {}) {
   const input = params ?? {};
-  const repo = normalizeRepo(input.repo ?? config.defaultRepo);
-  const workflow = normalizeOptionalString(input.workflow ?? config.defaultWorkflow);
-  const branch = normalizeOptionalString(input.branch ?? config.defaultBranch);
+  const pluginConfig = config ?? {};
+  const runtimeEnv = env ?? {};
+  const repo = normalizeRepo(input.repo ?? pluginConfig.defaultRepo);
+  const workflow = normalizeOptionalString(input.workflow ?? pluginConfig.defaultWorkflow);
+  const branch = normalizeOptionalString(input.branch ?? pluginConfig.defaultBranch);
   const runId = normalizeRunId(input.runId);
   const includeLogExcerpt = input.includeLogExcerpt !== false;
   const logLines = clampLogLines(input.logLines);
-  const token = resolveToken({ config, env });
+  const token = resolveToken({ config: pluginConfig, env: runtimeEnv });
 
   if (!repo) {
     throw new Error("Missing repo. Pass repo as owner/name or set plugins.entries.releaseops.config.defaultRepo.");
@@ -27,7 +29,7 @@ export async function summarizeFailedDeploy({ params, config, env, fetchImpl = f
   const enrichedJobs = [];
   for (const job of failedJobs) {
     const failedSteps = Array.isArray(job.steps)
-      ? job.steps.filter((step) => isFailureConclusion(step.conclusion))
+      ? job.steps.filter((step) => isFailureConclusion(step.conclusion)).map(normalizeStep)
       : [];
 
     const logExcerpt = includeLogExcerpt
@@ -56,7 +58,7 @@ export async function summarizeFailedDeploy({ params, config, env, fetchImpl = f
     failedJobs: enrichedJobs,
     likelyCause: inferLikelyCause(enrichedJobs),
     nextChecks: buildNextChecks(enrichedJobs),
-    rollbackChecklist: buildRollbackChecklist(config.runbookPath),
+    rollbackChecklist: buildRollbackChecklist(pluginConfig.runbookPath),
   };
 }
 
@@ -89,6 +91,21 @@ function normalizeRunId(value) {
   }
 
   return numeric;
+}
+
+function normalizeStep(step) {
+  return omitUndefined({
+    number: step.number,
+    name: step.name,
+    status: step.status,
+    conclusion: step.conclusion,
+    startedAt: step.started_at,
+    completedAt: step.completed_at,
+  });
+}
+
+function omitUndefined(value) {
+  return Object.fromEntries(Object.entries(value).filter(([, entry]) => entry !== undefined));
 }
 
 function clampLogLines(value) {
@@ -208,12 +225,21 @@ function isFailureConclusion(conclusion) {
 
 function inferLikelyCause(failedJobs) {
   const firstStep = failedJobs.flatMap((job) => job.failedSteps)[0];
+  const firstSignal = findFirstErrorSignal(failedJobs);
   if (firstStep?.name) {
+    if (firstSignal) {
+      return `The run first failed in step "${firstStep.name}". The clearest log signal is: "${firstSignal}".`;
+    }
+
     return `The first failed step is "${firstStep.name}". Review that step's logs first, then check adjacent setup or dependency changes.`;
   }
 
   const firstJob = failedJobs[0];
   if (firstJob?.name) {
+    if (firstSignal) {
+      return `The run failed in job "${firstJob.name}". The clearest log signal is: "${firstSignal}".`;
+    }
+
     return `The run failed in job "${firstJob.name}", but GitHub did not report a failed step. Inspect the job log excerpt and runner/setup phase.`;
   }
 
@@ -231,11 +257,42 @@ function buildNextChecks(failedJobs) {
     checks.push("A timeout appears in the log excerpt; check external service health and runner resource limits.");
   }
 
-  if (failedJobs.some((job) => job.logExcerpt.some((line) => /permission|unauthorized|forbidden|401|403/i.test(line)))) {
+  if (failedJobs.some((job) => job.logExcerpt.some((line) => /permission|unauthorized|forbidden|\b(?:401|403)\b/i.test(line)))) {
     checks.push("A permission or auth error appears in the log excerpt; check token scopes and environment protection rules.");
   }
 
+  if (failedJobs.some((job) => job.logExcerpt.some((line) => /\b(?:500|502|503|504)\b|HTTP 5\d\d|service unavailable/i.test(line)))) {
+    checks.push("A 5xx or service-unavailable signal appears in the log excerpt; check deploy target health and provider status.");
+  }
+
   return checks;
+}
+
+function findFirstErrorSignal(failedJobs) {
+  const line = failedJobs.flatMap((job) => job.logExcerpt).find((entry) => DEFAULT_SIGNAL_PATTERNS.some((pattern) => pattern.test(entry)));
+  return line ? cleanSignalLine(line) : undefined;
+}
+
+const DEFAULT_SIGNAL_PATTERNS = [
+  /^##\[error\]/i,
+  /\berror\b/i,
+  /\bfail(?:ed|ure)?\b/i,
+  /\bexception\b/i,
+  /\btimeout\b/i,
+  /\btimed out\b/i,
+  /\bunauthorized\b/i,
+  /\bforbidden\b/i,
+  /\bpermission\b/i,
+  /\bnot found\b/i,
+  /\bexit code\b/i,
+  /\bHTTP 5\d\d\b/i,
+];
+
+function cleanSignalLine(line) {
+  return line
+    .replace(/^##\[error\]/i, "")
+    .replace(/^Error:\s*/i, "")
+    .trim();
 }
 
 function buildRollbackChecklist(runbookPath) {

@@ -1,6 +1,15 @@
 export function formatFailedDeploySummary(summary) {
+  const firstFailedJob = summary.failedJobs[0];
+  const firstFailedStep = firstFailedJob?.failedSteps[0];
   const lines = [
-    "# Failed Deploy Summary",
+    "# ReleaseOps Failed Deploy Triage",
+    "",
+    `Status: ${summary.conclusion ?? "unknown"}`,
+    `Likely cause: ${summary.likelyCause}`,
+    `First failed job: ${firstFailedJob?.name ?? "unknown"}`,
+    `First failed step: ${firstFailedStep?.name ?? "unknown"}`,
+    "",
+    "## Run Details",
     "",
     `Repository: ${summary.repo}`,
     `Workflow: ${summary.workflowName ?? summary.workflowId ?? "unknown"}`,
@@ -32,9 +41,6 @@ export function formatFailedDeploySummary(summary) {
   }
 
   lines.push(
-    "",
-    "## Likely Cause",
-    summary.likelyCause,
     "",
     "## Next Checks",
     ...summary.nextChecks.map((item) => `- ${item}`),
