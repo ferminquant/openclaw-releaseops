@@ -113,6 +113,8 @@ Use these assets together:
 
 - README: `README.md`
 - demo walkthrough: `docs/demo-walkthrough.md`
+- public write-up draft: `docs/public-writeup.md`
+- passive share kit: `docs/share-kit.md`
 - public demo repo:
   `https://github.com/ferminquant/releaseops-demo-failing-actions`
 - known failed run:
@@ -196,11 +198,11 @@ visibility, Slack delivery, or saved runbooks.
 Do not add write behavior, deploy execution, reruns, rollback execution, or
 GitHub mutation as part of validation.
 
-## Next Asset To Produce
+## Next Asset To Publish
 
-The next best asset is a short public write-up:
+The next best asset to publish is the short public write-up:
 
-- title: "A read-only OpenClaw plugin for failed GitHub Actions deploy triage"
-- body: problem, demo, why read-only, what it found, what the hosted version
-  might become
-- CTA: try the plugin locally or express interest in hosted beta
+- source draft: `docs/public-writeup.md`
+- sharing copy: `docs/share-kit.md`
+- CTA: try the plugin locally, open an issue with missing context, or express
+  interest in hosted beta

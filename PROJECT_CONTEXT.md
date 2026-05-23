@@ -114,6 +114,8 @@ Current scaffold:
 - tests for user-facing markdown shape: `test/format.test.js`
 - reusable product demo walkthrough: `docs/demo-walkthrough.md`
 - passive validation plan: `docs/validation-plan.md`
+- public write-up draft: `docs/public-writeup.md`
+- passive share kit: `docs/share-kit.md`
 
 Current tool:
 
@@ -173,6 +175,8 @@ Current validation:
 - a passive validation plan now captures the no-active-selling constraint,
   one-paragraph pitch, demo packet, discovery questions, signal scorecard, and
   decision rules
+- a public write-up draft and passive share kit now package the demo for
+  low-friction publishing and async feedback
 - mocked GitHub API tests now cover a run with multiple failed jobs, separate
   log excerpts, and next-check signals for both 5xx and timeout failures
 
@@ -246,9 +250,11 @@ Restart the Gateway after install/config changes.
 
 ## Next Recommended Work
 
-1. Use the passive validation plan to publish/share the demo artifact and
-   collect async feedback without making active selling the primary motion.
-2. Decide whether the next product iteration should improve summarization depth
+1. Publish the public write-up from `docs/public-writeup.md` on a chosen public
+   surface after filling in the plugin repo URL and feedback CTA.
+2. Share lightly using `docs/share-kit.md`, then watch inbound signals instead
+   of chasing active sales conversations.
+3. Decide whether the next product iteration should improve summarization depth
    or focus on packaging/content for validation.
 
 ## Quality Bar

@@ -4,6 +4,9 @@ Use this walkthrough to show the ReleaseOps wedge in under two minutes: a
 release owner asks OpenClaw what failed, and the plugin turns a failed GitHub
 Actions deploy into a concise, read-only triage summary.
 
+For a publishable write-up and passive sharing copy, see
+`docs/public-writeup.md` and `docs/share-kit.md`.
+
 ## Demo Asset
 
 Public repo:

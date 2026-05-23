@@ -22,6 +22,10 @@ For a short reusable demo script, see
 For passive product-led validation, see
 [docs/validation-plan.md](docs/validation-plan.md).
 
+For a public write-up draft and passive sharing copy, see
+[docs/public-writeup.md](docs/public-writeup.md) and
+[docs/share-kit.md](docs/share-kit.md).
+
 ## First Tool
 
 `releaseops_failed_deploy_summary`
@@ -42,18 +46,23 @@ What it does not do:
 - modify GitHub state
 - require a hosted backend
 
-## Local Install
+## Self-Serve Quickstart
 
-From this repo:
+From a local checkout of this repo, verify the plugin and install it into
+OpenClaw:
 
 ```bash
+npm test
 openclaw plugins install --link .
 openclaw plugins enable releaseops
 openclaw plugins inspect releaseops --runtime --json
 ```
 
-Enable the plugin and expose the optional tool to a dedicated ReleaseOps agent.
-This keeps the default `main` agent from inheriting release/incident tools.
+The runtime inspect output should show optional tool
+`releaseops_failed_deploy_summary`.
+
+Add a dedicated ReleaseOps agent to OpenClaw config so the default `main` agent
+does not inherit release/incident tools:
 
 ```json5
 {
@@ -77,6 +86,57 @@ This keeps the default `main` agent from inheriting release/incident tools.
         enabled: true,
         config: {
           githubTokenEnv: "GITHUB_TOKEN",
+          defaultRepo: "ferminquant/releaseops-demo-failing-actions",
+          defaultWorkflow: "deploy.yml",
+          defaultBranch: "main",
+          runbookPath: "./runbooks/rollback.md",
+        },
+      },
+    },
+  },
+}
+```
+
+Restart the Gateway after install or config changes:
+
+```bash
+openclaw gateway restart
+```
+
+For the richest demo, make sure the Gateway can see `GITHUB_TOKEN` before
+asking for log excerpts. If you want to avoid token setup for a first smoke
+test, change the prompt to `includeLogExcerpt false`.
+
+Try the public demo:
+
+```bash
+openclaw agent --agent releaseops --message 'Use releaseops_failed_deploy_summary to summarize failed GitHub Actions run 26300685264. Use repo ferminquant/releaseops-demo-failing-actions, workflow deploy.yml, branch main, and include the log excerpt.'
+```
+
+Expected signal:
+
+- failed job: `deploy-demo-service`
+- failed step: `Deploy to demo environment`
+- clearest log signal: `Simulated deploy endpoint returned HTTP 503`
+
+OpenClaw currently rejects `tools.allow` and `tools.alsoAllow` in the same
+scope. Use agent-level `tools.alsoAllow` when the tool should be added to a
+profile. `skills: []` keeps the ReleaseOps agent from loading generic GitHub
+skills and nudges GitHub Actions triage through the product tool.
+
+## Configure For Your Repo
+
+Replace the demo defaults with your repo, workflow, branch, and rollback
+runbook path:
+
+```json5
+{
+  plugins: {
+    entries: {
+      releaseops: {
+        enabled: true,
+        config: {
+          githubTokenEnv: "GITHUB_TOKEN",
           defaultRepo: "owner/repo",
           defaultWorkflow: "deploy.yml",
           defaultBranch: "main",
@@ -88,17 +148,6 @@ This keeps the default `main` agent from inheriting release/incident tools.
 }
 ```
 
-OpenClaw currently rejects `tools.allow` and `tools.alsoAllow` in the same
-scope. Use agent-level `tools.alsoAllow` when the tool should be added to a
-profile. `skills: []` keeps the ReleaseOps agent from loading generic GitHub
-skills and nudges GitHub Actions triage through the product tool.
-
-Restart the Gateway after install or config changes:
-
-```bash
-openclaw gateway restart
-```
-
 If the Gateway runs as a systemd user service, make sure the service environment
 contains the token before restarting when you want job log excerpts:
 
@@ -106,6 +155,9 @@ contains the token before restarting when you want job log excerpts:
 systemctl --user set-environment GITHUB_TOKEN="$(gh auth token)"
 openclaw gateway restart
 ```
+
+Public repos can work without a token, but rate limits are lower. Private repos
+need a token with read-only access.
 
 ## Validated Demo
 
@@ -183,4 +235,8 @@ Use releaseops_failed_deploy_summary for ferminquant/example-service and tell me
 
 ```bash
 npm test
+node --check index.js
+node --check src/github-actions.js
+node --check src/format.js
+node --check src/logs.js
 ```
