@@ -131,6 +131,110 @@ test("summarizeFailedDeploy finds the latest failed run and enriches failed jobs
   fetchImpl.assertConsumed();
 });
 
+test("summarizeFailedDeploy summarizes multiple failed jobs in one run", async () => {
+  const fetchImpl = createMockFetch({
+    "/repos/octo/widget/actions/runs/4242": [
+      jsonResponse({
+        id: 4242,
+        workflow_id: 456,
+        name: "Deploy",
+        html_url: "https://github.com/octo/widget/actions/runs/4242",
+        conclusion: "failure",
+        head_branch: "main",
+        run_started_at: "2026-05-22T18:00:00Z",
+      }),
+    ],
+    "/repos/octo/widget/actions/runs/4242/jobs?per_page=100&page=1": [
+      jsonResponse({
+        jobs: [
+          {
+            id: 401,
+            name: "deploy (api)",
+            status: "completed",
+            conclusion: "failure",
+            steps: [
+              { number: 1, name: "Checkout", status: "completed", conclusion: "success" },
+              { number: 2, name: "Deploy api", status: "completed", conclusion: "failure" },
+            ],
+          },
+          {
+            id: 402,
+            name: "deploy (worker)",
+            status: "completed",
+            conclusion: "failure",
+            steps: [
+              { number: 1, name: "Build worker", status: "completed", conclusion: "success" },
+              { number: 2, name: "Smoke test worker", status: "completed", conclusion: "failure" },
+            ],
+          },
+          {
+            id: 403,
+            name: "notify",
+            status: "completed",
+            conclusion: "success",
+            steps: [{ number: 1, name: "Notify", status: "completed", conclusion: "success" }],
+          },
+        ],
+      }),
+    ],
+    "/repos/octo/widget/actions/jobs/401/logs": [
+      textResponse(
+        [
+          "Preparing api deploy",
+          "Deploying api image",
+          "##[error]HTTP 503 service unavailable from demo target",
+          "Error: deploy failed with exit code 1",
+        ].join("\n"),
+      ),
+    ],
+    "/repos/octo/widget/actions/jobs/402/logs": [
+      textResponse(
+        [
+          "Preparing worker deploy",
+          "Waiting for queue drain",
+          "Error: timeout waiting for queue drain",
+          "Run finished with failure",
+        ].join("\n"),
+      ),
+    ],
+  });
+
+  const summary = await summarizeFailedDeploy({
+    params: { repo: "octo/widget", runId: 4242, logLines: 20 },
+    config: {},
+    env: {},
+    fetchImpl,
+  });
+
+  assert.equal(summary.failedJobs.length, 2);
+  assert.deepEqual(
+    summary.failedJobs.map((job) => job.name),
+    ["deploy (api)", "deploy (worker)"],
+  );
+  assert.deepEqual(summary.failedJobs[0].failedSteps, [
+    { number: 2, name: "Deploy api", status: "completed", conclusion: "failure" },
+  ]);
+  assert.deepEqual(summary.failedJobs[1].failedSteps, [
+    { number: 2, name: "Smoke test worker", status: "completed", conclusion: "failure" },
+  ]);
+  assert.ok(summary.failedJobs[0].logExcerpt.includes("##[error]HTTP 503 service unavailable from demo target"));
+  assert.ok(summary.failedJobs[1].logExcerpt.includes("Error: timeout waiting for queue drain"));
+  assert.match(summary.likelyCause, /Deploy api/);
+  assert.match(summary.likelyCause, /HTTP 503 service unavailable/);
+  assert.ok(summary.nextChecks.some((check) => check.includes("5xx or service-unavailable")));
+  assert.ok(summary.nextChecks.some((check) => check.includes("timeout appears")));
+  assert.deepEqual(
+    fetchImpl.calls.map((call) => call.path),
+    [
+      "/repos/octo/widget/actions/runs/4242",
+      "/repos/octo/widget/actions/runs/4242/jobs?per_page=100&page=1",
+      "/repos/octo/widget/actions/jobs/401/logs",
+      "/repos/octo/widget/actions/jobs/402/logs",
+    ],
+  );
+  fetchImpl.assertConsumed();
+});
+
 test("summarizeFailedDeploy uses an explicit run id and can skip log excerpts", async () => {
   const fetchImpl = createMockFetch({
     "/repos/octo/widget/actions/runs/789": [

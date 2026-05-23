@@ -68,6 +68,7 @@ Current scaffold:
 - tests for log extraction: `test/logs.test.js`
 - tests for GitHub API summary behavior: `test/github-actions.test.js`
 - tests for user-facing markdown shape: `test/format.test.js`
+- reusable product demo walkthrough: `docs/demo-walkthrough.md`
 
 Current tool:
 
@@ -121,6 +122,11 @@ Current validation:
   `session_status` and `releaseops_failed_deploy_summary`
 - the final chat-level proof run used the native tool directly; `toolSummary`
   reported one call to `releaseops_failed_deploy_summary` and zero failures
+- a short demo walkthrough now captures the public demo repo, known failed run,
+  expected proof points, read-only safety boundary, talk track, and validation
+  questions
+- mocked GitHub API tests now cover a run with multiple failed jobs, separate
+  log excerpts, and next-check signals for both 5xx and timeout failures
 
 The tool must stay read-only:
 
@@ -192,10 +198,9 @@ Restart the Gateway after install/config changes.
 
 ## Next Recommended Work
 
-1. Capture a short demo narrative using the public demo repo and validated run.
-2. Test one additional safe repository shape, such as a matrix job or a workflow
-   with multiple failed jobs.
-3. Decide whether the next product iteration should improve summarization depth
+1. Use the demo walkthrough with 2-3 target users and capture where the summary
+   is clear, vague, or missing the decision-making context they need.
+2. Decide whether the next product iteration should improve summarization depth
    or focus on packaging/content for validation.
 
 ## Quality Bar

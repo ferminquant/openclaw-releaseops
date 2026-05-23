@@ -11,6 +11,9 @@ This is the first product-led validation wedge for a ReleaseOps assistant:
 
 For full project context, see [PROJECT_CONTEXT.md](PROJECT_CONTEXT.md).
 
+For a short reusable demo script, see
+[docs/demo-walkthrough.md](docs/demo-walkthrough.md).
+
 ## First Tool
 
 `releaseops_failed_deploy_summary`
@@ -142,6 +145,9 @@ openclaw agent --agent releaseops --session-id releaseops-dedicated-clean-proof 
 
 The trace reported one tool call, the tool was
 `releaseops_failed_deploy_summary`, and there were zero tool failures.
+
+For a product demo talk track and validation questions, use
+[docs/demo-walkthrough.md](docs/demo-walkthrough.md).
 
 ## GitHub Token
 
