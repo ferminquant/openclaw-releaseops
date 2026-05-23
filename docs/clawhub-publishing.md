@@ -24,6 +24,14 @@ Use the latest ClawHub CLI for package commands:
 npx -y clawhub@latest package publish ferminquant/openclaw-releaseops --dry-run --json
 ```
 
+Current status:
+
+- GitHub-source dry-run passed at commit
+  `e92afb08b1a55b14e747989fa0e1741f38f0e7c5`
+- package family: `code-plugin`
+- package name: `@ferminquant/openclaw-releaseops`
+- version: `0.1.0`
+
 ## Publish
 
 After the dry-run is clean and ClawHub auth is configured:
@@ -31,6 +39,14 @@ After the dry-run is clean and ClawHub auth is configured:
 ```bash
 npx -y clawhub@latest package publish ferminquant/openclaw-releaseops
 ```
+
+If the CLI reports `Not logged in`, run:
+
+```bash
+npx -y clawhub@latest login
+```
+
+Then rerun the publish command.
 
 ## Safety Check
 

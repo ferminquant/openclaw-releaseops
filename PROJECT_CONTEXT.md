@@ -183,6 +183,12 @@ Current validation:
   feedback, missing failed-deploy context, and hosted beta interest
 - package metadata includes OpenClaw build compatibility for external ClawHub
   package publishing
+- ClawHub GitHub-source package dry-run passes for
+  `ferminquant/openclaw-releaseops`; actual publish still requires ClawHub
+  login/auth
+- GitHub repo topics are set on the repository, not on Fermin's profile:
+  `openclaw`, `openclaw-plugin`, `github-actions`, `releaseops`, `ci-cd`,
+  `devops`, `incident-response`
 - mocked GitHub API tests now cover a run with multiple failed jobs, separate
   log excerpts, and next-check signals for both 5xx and timeout failures
 

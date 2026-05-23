@@ -35,6 +35,16 @@ Primary CTA destinations:
    - Share only where OpenClaw plugin or release-engineering work is already
      being discussed.
 
+Recommended first community post:
+
+- Where: `r/openclaw`
+- When: after the ClawHub package is published, so the install path is
+  OpenClaw-native.
+- Title: `Read-only OpenClaw plugin for failed GitHub Actions deploy triage`
+- Use: the technical community post below.
+- CTA: ask what failed-deploy context is missing; do not ask people to book a
+  call or hire setup help.
+
 ## Good Places To Share
 
 - a personal technical blog post
