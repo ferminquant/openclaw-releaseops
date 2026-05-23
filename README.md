@@ -41,12 +41,24 @@ openclaw plugins enable releaseops
 openclaw plugins inspect releaseops --runtime --json
 ```
 
-Enable the optional tool in OpenClaw config:
+Enable the plugin and expose the optional tool to a dedicated ReleaseOps agent.
+This keeps the default `main` agent from inheriting release/incident tools.
 
 ```json5
 {
-  tools: {
-    allow: ["releaseops_failed_deploy_summary"],
+  agents: {
+    list: [
+      // Keep your existing agents here, then add:
+      {
+        id: "releaseops",
+        name: "ReleaseOps",
+        skills: [],
+        tools: {
+          profile: "minimal",
+          alsoAllow: ["releaseops_failed_deploy_summary"],
+        },
+      },
+    ],
   },
   plugins: {
     entries: {
@@ -64,6 +76,11 @@ Enable the optional tool in OpenClaw config:
   },
 }
 ```
+
+OpenClaw currently rejects `tools.allow` and `tools.alsoAllow` in the same
+scope. Use agent-level `tools.alsoAllow` when the tool should be added to a
+profile. `skills: []` keeps the ReleaseOps agent from loading generic GitHub
+skills and nudges GitHub Actions triage through the product tool.
 
 Restart the Gateway after install or config changes:
 
@@ -116,6 +133,15 @@ POST http://127.0.0.1:18789/tools/invoke
 tool: releaseops_failed_deploy_summary
 args: { repo, workflow, branch, includeLogExcerpt, logLines }
 ```
+
+Validated chat-level tool invocation:
+
+```text
+openclaw agent --agent releaseops --session-id releaseops-dedicated-clean-proof --json --timeout 600 --message 'Use releaseops_failed_deploy_summary to summarize failed GitHub Actions run 26300685264. Use repo ferminquant/releaseops-demo-failing-actions, workflow deploy.yml, branch main, includeLogExcerpt false. Do not use bash or shell.'
+```
+
+The trace reported one tool call, the tool was
+`releaseops_failed_deploy_summary`, and there were zero tool failures.
 
 ## GitHub Token
 

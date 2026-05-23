@@ -90,7 +90,10 @@ Current validation:
 - `openclaw plugins enable releaseops` passed
 - `openclaw plugins inspect releaseops --runtime --json` reported the plugin as
   loaded and exposing optional tool `releaseops_failed_deploy_summary`
-- local OpenClaw config now allowlists `releaseops_failed_deploy_summary`
+- local OpenClaw config now exposes `releaseops_failed_deploy_summary` through
+  a dedicated `releaseops` agent, not through global `main`
+- the `releaseops` agent uses `tools.profile: "minimal"`,
+  `tools.alsoAllow: ["releaseops_failed_deploy_summary"]`, and `skills: []`
 - local OpenClaw plugin config now defaults to the public demo repo, workflow,
   branch, token env name, and rollback runbook path
 - Gateway was restarted after config changes
@@ -105,9 +108,19 @@ Current validation:
   - failed job: `deploy-demo-service`
   - failed step: `Deploy to demo environment`
   - clearest signal: `Simulated deploy endpoint returned HTTP 503`
-- an `openclaw agent --agent main` chat invocation returned the expected
-  triage summary, but the Codex agent harness used shell execution rather than
-  exposing the plugin as a native model tool in the trace
+- direct `tools.effective` diagnosis showed why a previous chat run did not use
+  the harness tool: `tools.allow: ["releaseops_failed_deploy_summary"]` was a
+  restrictive filter, and the `coding` profile filtered the optional plugin
+  tool before `tools.allow` could match it
+- OpenClaw rejects `tools.allow` and `tools.alsoAllow` in the same scope, so
+  the working chat-level config uses agent-level `tools.alsoAllow` with
+  `releaseops_failed_deploy_summary`
+- a fresh `openclaw agent --agent main` check no longer exposed the ReleaseOps
+  tool
+- a fresh `openclaw agent --agent releaseops` check exposed only
+  `session_status` and `releaseops_failed_deploy_summary`
+- the final chat-level proof run used the native tool directly; `toolSummary`
+  reported one call to `releaseops_failed_deploy_summary` and zero failures
 
 The tool must stay read-only:
 
@@ -149,27 +162,40 @@ openclaw plugins enable releaseops
 openclaw plugins inspect releaseops --runtime --json
 ```
 
-Then allow the optional tool in OpenClaw config:
+Then add a dedicated ReleaseOps agent to OpenClaw config:
 
 ```json5
 {
-  tools: {
-    allow: ["releaseops_failed_deploy_summary"],
+  agents: {
+    list: [
+      // Keep existing agents, then add:
+      {
+        id: "releaseops",
+        name: "ReleaseOps",
+        skills: [],
+        tools: {
+          profile: "minimal",
+          alsoAllow: ["releaseops_failed_deploy_summary"],
+        },
+      },
+    ],
   },
 }
 ```
+
+`tools.allow` alone is not enough for this optional plugin tool in the Codex
+chat harness. It behaves as a later filter, while agent-level
+`tools.alsoAllow` widens the selected profile before filtering. `skills: []`
+prevents generic GitHub skills from competing with the ReleaseOps tool.
 
 Restart the Gateway after install/config changes.
 
 ## Next Recommended Work
 
-1. Decide whether the validation story should rely on direct Gateway
-   `/tools/invoke`, or whether ReleaseOps needs to be exposed as a native tool
-   inside the Codex chat harness.
-2. Capture a short demo narrative using the public demo repo and validated run.
-3. Test one additional safe repository shape, such as a matrix job or a workflow
+1. Capture a short demo narrative using the public demo repo and validated run.
+2. Test one additional safe repository shape, such as a matrix job or a workflow
    with multiple failed jobs.
-4. Decide whether the next product iteration should improve summarization depth
+3. Decide whether the next product iteration should improve summarization depth
    or focus on packaging/content for validation.
 
 ## Quality Bar
