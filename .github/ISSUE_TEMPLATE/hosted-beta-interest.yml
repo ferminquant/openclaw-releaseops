@@ -1,0 +1,38 @@
+name: Hosted beta interest
+description: Register public-safe interest in hosted ReleaseOps features.
+title: "Hosted beta interest: "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        This is for lightweight inbound signal, not a sales call. Please keep details public-safe and avoid private repo names, logs, customer data, or secrets.
+  - type: checkboxes
+    id: features
+    attributes:
+      label: Hosted features of interest
+      options:
+        - label: Scheduled failed-deploy summaries
+        - label: Slack, Discord, or Telegram delivery
+        - label: Saved rollback and verification runbooks
+        - label: Multi-repo release visibility
+        - label: Team-visible release history
+        - label: Lightweight postmortem archive
+  - type: dropdown
+    id: team-size
+    attributes:
+      label: Team size
+      options:
+        - Solo / side project
+        - 2-10 engineers
+        - 11-50 engineers
+        - 51+ engineers
+        - Prefer not to say
+    validations:
+      required: false
+  - type: textarea
+    id: why
+    attributes:
+      label: Why hosted?
+      description: What would make hosted/team features worth considering?
+    validations:
+      required: false

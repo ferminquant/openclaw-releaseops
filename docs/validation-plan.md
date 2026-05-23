@@ -115,6 +115,7 @@ Use these assets together:
 - demo walkthrough: `docs/demo-walkthrough.md`
 - public write-up draft: `docs/public-writeup.md`
 - passive share kit: `docs/share-kit.md`
+- feedback issue templates: `.github/ISSUE_TEMPLATE/`
 - public demo repo:
   `https://github.com/ferminquant/releaseops-demo-failing-actions`
 - known failed run:
@@ -206,3 +207,7 @@ The next best asset to publish is the short public write-up:
 - sharing copy: `docs/share-kit.md`
 - CTA: try the plugin locally, open an issue with missing context, or express
   interest in hosted beta
+
+Canonical public repo:
+
+<https://github.com/ferminquant/openclaw-releaseops>

@@ -1,0 +1,41 @@
+name: Demo feedback
+description: Share whether the public failed-deploy demo is clear and useful.
+title: "Demo feedback: "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for trying the demo. Please keep this public-safe: do not paste secrets, private logs, customer data, or private incident details.
+  - type: dropdown
+    id: usefulness
+    attributes:
+      label: Usefulness
+      description: How useful was the demo summary for failed-deploy triage?
+      options:
+        - Clear and useful
+        - Directionally useful, but missing context
+        - Interesting, but not useful yet
+        - Not useful for my workflow
+    validations:
+      required: true
+  - type: textarea
+    id: what-worked
+    attributes:
+      label: What worked?
+      description: What part of the summary helped you understand the failed deploy?
+    validations:
+      required: false
+  - type: textarea
+    id: what-was-missing
+    attributes:
+      label: What was missing?
+      description: What would you need before using this during a real failed deploy?
+    validations:
+      required: false
+  - type: textarea
+    id: workflow
+    attributes:
+      label: Where would this fit?
+      description: Chat, Slack, GitHub comments, dashboard, scheduled digest, or somewhere else?
+    validations:
+      required: false

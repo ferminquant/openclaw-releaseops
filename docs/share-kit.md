@@ -5,12 +5,34 @@ active selling.
 
 ## Before Sharing
 
-- Make the plugin repo public or choose the exact public page to link.
+- Make the plugin repo public:
+  `https://github.com/ferminquant/openclaw-releaseops`
 - Confirm the demo repo and known failed run are still public.
 - Run the local validation suite from the README.
-- Fill in the CTA destination: GitHub issue, hosted beta interest form, email,
-  or comments.
 - Do not include secrets, private customer logs, or real incident data.
+
+Primary CTA destinations:
+
+- demo feedback:
+  `https://github.com/ferminquant/openclaw-releaseops/issues/new?template=demo-feedback.yml`
+- missing context:
+  `https://github.com/ferminquant/openclaw-releaseops/issues/new?template=missing-context.yml`
+- hosted beta interest:
+  `https://github.com/ferminquant/openclaw-releaseops/issues/new?template=hosted-beta-interest.yml`
+
+## Where To Publish First
+
+1. GitHub repo README
+   - This is the canonical surface for the plugin, quickstart, demo, and issue
+     templates.
+
+2. Personal site article on `ferminquant.com`
+   - Use `docs/public-writeup.md` as the source draft.
+   - Link back to the GitHub repo and issue templates.
+
+3. One light social/community share
+   - Use the short post or technical community post below.
+   - Share only where technical work is already being discussed.
 
 ## Good Places To Share
 
@@ -31,7 +53,7 @@ I built a small read-only OpenClaw plugin for failed GitHub Actions deploy triag
 
 It summarizes the failed run, failed job, failed step, useful log signal, next checks, and rollback checklist from chat. It does not rerun workflows, deploy, roll back, or mutate GitHub state.
 
-Demo repo and write-up: <link>
+Demo repo and write-up: https://github.com/ferminquant/openclaw-releaseops/blob/main/docs/public-writeup.md
 
 If this matches a real deploy failure workflow you have seen, I would be curious what context the summary is still missing.
 ```
@@ -51,7 +73,7 @@ The demo intentionally fails a synthetic deploy step, then the plugin identifies
 
 The important constraint: no deploys, reruns, rollback execution, GitHub writes, or hosted backend in the first version.
 
-Write-up and demo: <link>
+Write-up and demo: https://github.com/ferminquant/openclaw-releaseops/blob/main/docs/public-writeup.md
 
 Useful feedback would be: is this enough context to choose your next action during a failed deploy, or would you need last-good-run comparison, changed files, ownership, environment metadata, or runbook context?
 ```
@@ -61,7 +83,7 @@ Useful feedback would be: is this enough context to choose your next action duri
 ```text
 I am testing a product idea, not pitching consulting: a read-only OpenClaw plugin that summarizes failed GitHub Actions deploys from chat.
 
-The demo is here: <link>
+The demo is here: https://github.com/ferminquant/openclaw-releaseops/blob/main/docs/public-writeup.md
 
 One question: does this solve a real failed-deploy pain, or is the summary too shallow to matter?
 ```

@@ -116,6 +116,7 @@ Current scaffold:
 - passive validation plan: `docs/validation-plan.md`
 - public write-up draft: `docs/public-writeup.md`
 - passive share kit: `docs/share-kit.md`
+- passive GitHub issue templates: `.github/ISSUE_TEMPLATE/`
 
 Current tool:
 
@@ -177,6 +178,8 @@ Current validation:
   decision rules
 - a public write-up draft and passive share kit now package the demo for
   low-friction publishing and async feedback
+- GitHub issue templates now provide public-safe async feedback paths for demo
+  feedback, missing failed-deploy context, and hosted beta interest
 - mocked GitHub API tests now cover a run with multiple failed jobs, separate
   log excerpts, and next-check signals for both 5xx and timeout failures
 
@@ -250,11 +253,13 @@ Restart the Gateway after install/config changes.
 
 ## Next Recommended Work
 
-1. Publish the public write-up from `docs/public-writeup.md` on a chosen public
-   surface after filling in the plugin repo URL and feedback CTA.
-2. Share lightly using `docs/share-kit.md`, then watch inbound signals instead
+1. Publish/push the public repo at
+   `https://github.com/ferminquant/openclaw-releaseops`.
+2. Optionally publish the write-up from `docs/public-writeup.md` on
+   `ferminquant.com`, then link back to the GitHub repo and issue templates.
+3. Share lightly using `docs/share-kit.md`, then watch inbound signals instead
    of chasing active sales conversations.
-3. Decide whether the next product iteration should improve summarization depth
+4. Decide whether the next product iteration should improve summarization depth
    or focus on packaging/content for validation.
 
 ## Quality Bar

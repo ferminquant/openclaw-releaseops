@@ -1,0 +1,36 @@
+name: Missing failed-deploy context
+description: Request context that would make the triage summary more decision-grade.
+title: "Missing context: "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Please describe the missing context in public-safe terms. Do not paste secrets, private logs, customer data, or private incident details.
+  - type: checkboxes
+    id: context
+    attributes:
+      label: Missing context
+      description: Which context would make the summary more useful?
+      options:
+        - label: Last successful run comparison
+        - label: Changed files or commits
+        - label: Service or code owner
+        - label: Environment metadata
+        - label: Rollback or verification runbook
+        - label: Deployment target health
+        - label: Package/dependency changes
+        - label: Secret or environment variable changes
+  - type: textarea
+    id: scenario
+    attributes:
+      label: Scenario
+      description: What failed-deploy scenario would this help with?
+    validations:
+      required: true
+  - type: textarea
+    id: desired-output
+    attributes:
+      label: Desired output
+      description: What would you want the summary to say or link to?
+    validations:
+      required: false

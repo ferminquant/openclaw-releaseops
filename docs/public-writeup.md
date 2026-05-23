@@ -86,13 +86,23 @@ manual setup projects.
 
 If this maps to a failed-deploy workflow you have seen:
 
-- try the local plugin from the README
-- star or watch the repo after it is public
-- open an issue with the missing context your team would need
-- join the hosted beta interest list when one exists
+- try the local plugin from the README:
+  <https://github.com/ferminquant/openclaw-releaseops>
+- star or watch the repo:
+  <https://github.com/ferminquant/openclaw-releaseops>
+- open an issue with the missing context your team would need:
+  <https://github.com/ferminquant/openclaw-releaseops/issues/new?template=missing-context.yml>
+- register public-safe hosted beta interest:
+  <https://github.com/ferminquant/openclaw-releaseops/issues/new?template=hosted-beta-interest.yml>
 
-Before publishing this write-up, fill in:
+## Where To Publish
 
-- public plugin repo URL
-- hosted beta interest link, if available
-- preferred feedback surface: GitHub issue, blog comments, or email
+Best first surface: the public GitHub repo itself, because the README,
+quickstart, demo links, and issue templates live there.
+
+Good second surface: a short personal-site post on `ferminquant.com` that links
+back to this repo and uses the same low-friction CTA.
+
+Optional light sharing after that: one personal social post or one relevant
+technical community thread where OpenClaw, GitHub Actions, CI/CD, or release
+engineering is already being discussed.

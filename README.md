@@ -26,6 +26,9 @@ For a public write-up draft and passive sharing copy, see
 [docs/public-writeup.md](docs/public-writeup.md) and
 [docs/share-kit.md](docs/share-kit.md).
 
+Public repo:
+<https://github.com/ferminquant/openclaw-releaseops>
+
 ## First Tool
 
 `releaseops_failed_deploy_summary`
@@ -230,6 +233,15 @@ Public repos can work without a token, but rate limits are lower.
 ```text
 Use releaseops_failed_deploy_summary for ferminquant/example-service and tell me what failed in the latest deploy.
 ```
+
+## Feedback
+
+Feedback is async and public-safe. Please do not paste secrets, private logs,
+customer data, or private incident details.
+
+- [Demo feedback](https://github.com/ferminquant/openclaw-releaseops/issues/new?template=demo-feedback.yml)
+- [Missing failed-deploy context](https://github.com/ferminquant/openclaw-releaseops/issues/new?template=missing-context.yml)
+- [Hosted beta interest](https://github.com/ferminquant/openclaw-releaseops/issues/new?template=hosted-beta-interest.yml)
 
 ## Development
 
