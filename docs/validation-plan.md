@@ -113,6 +113,7 @@ Use these assets together:
 
 - README: `README.md`
 - demo walkthrough: `docs/demo-walkthrough.md`
+- ClawHub publishing notes: `docs/clawhub-publishing.md`
 - public write-up draft: `docs/public-writeup.md`
 - passive share kit: `docs/share-kit.md`
 - feedback issue templates: `.github/ISSUE_TEMPLATE/`

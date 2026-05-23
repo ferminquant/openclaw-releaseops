@@ -26,13 +26,14 @@ Primary CTA destinations:
    - This is the canonical surface for the plugin, quickstart, demo, and issue
      templates.
 
-2. Personal site article on `ferminquant.com`
-   - Use `docs/public-writeup.md` as the source draft.
-   - Link back to the GitHub repo and issue templates.
+2. ClawHub package listing
+   - This is the OpenClaw-native discovery surface once the package dry-run is
+     clean and publishing is approved.
 
 3. One light social/community share
    - Use the short post or technical community post below.
-   - Share only where technical work is already being discussed.
+   - Share only where OpenClaw plugin or release-engineering work is already
+     being discussed.
 
 ## Good Places To Share
 

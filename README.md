@@ -22,6 +22,9 @@ For a short reusable demo script, see
 For passive product-led validation, see
 [docs/validation-plan.md](docs/validation-plan.md).
 
+For OpenClaw ecosystem packaging, see
+[docs/clawhub-publishing.md](docs/clawhub-publishing.md).
+
 For a public write-up draft and passive sharing copy, see
 [docs/public-writeup.md](docs/public-writeup.md) and
 [docs/share-kit.md](docs/share-kit.md).
@@ -57,6 +60,14 @@ OpenClaw:
 ```bash
 npm test
 openclaw plugins install --link .
+openclaw plugins enable releaseops
+openclaw plugins inspect releaseops --runtime --json
+```
+
+After ClawHub publishing, install with:
+
+```bash
+openclaw plugins install clawhub:@ferminquant/openclaw-releaseops
 openclaw plugins enable releaseops
 openclaw plugins inspect releaseops --runtime --json
 ```

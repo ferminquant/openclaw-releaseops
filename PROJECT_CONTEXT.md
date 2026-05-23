@@ -114,6 +114,7 @@ Current scaffold:
 - tests for user-facing markdown shape: `test/format.test.js`
 - reusable product demo walkthrough: `docs/demo-walkthrough.md`
 - passive validation plan: `docs/validation-plan.md`
+- ClawHub publishing notes: `docs/clawhub-publishing.md`
 - public write-up draft: `docs/public-writeup.md`
 - passive share kit: `docs/share-kit.md`
 - passive GitHub issue templates: `.github/ISSUE_TEMPLATE/`
@@ -180,6 +181,8 @@ Current validation:
   low-friction publishing and async feedback
 - GitHub issue templates now provide public-safe async feedback paths for demo
   feedback, missing failed-deploy context, and hosted beta interest
+- package metadata includes OpenClaw build compatibility for external ClawHub
+  package publishing
 - mocked GitHub API tests now cover a run with multiple failed jobs, separate
   log excerpts, and next-check signals for both 5xx and timeout failures
 
