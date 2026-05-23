@@ -14,7 +14,9 @@ upstream OpenClaw PRs.
 
 ## Product Strategy
 
-The preferred business path is not consulting-first.
+The preferred business path is product-led, not consulting-led or
+sales-led. A future thread should not turn this into a plan where Fermin has to
+sell his time, book pitch calls, or manually chase account-by-account buyers.
 
 The intended path is:
 
@@ -38,7 +40,49 @@ Starting pricing hypothesis:
 - Team: `$149-$299/month`
 
 Consulting or setup help can be used as learning, but it should not become the
-main business model.
+main business model. Do not make cold outreach, pitch-heavy calls, manual
+account-by-account selling, or consulting-led discovery the default next step.
+
+## Founder Constraint: No Active Selling Dependency
+
+This came from the planning discussion and should be treated as a product
+constraint, not a preference to revisit every session.
+
+Fermin is willing to build and validate this part time, but he is not looking
+forward to selling and does not want the revenue path to depend on active sales
+labor. The product should be designed so traction can come from public utility,
+clear positioning, and inbound interest rather than from constant outbound
+effort.
+
+Avoid default recommendations like:
+
+- cold outreach lists
+- repeated sales calls
+- "do consulting first" as the revenue model
+- bespoke setup projects as the main offer
+- manual founder-led selling as the only validation path
+
+Preferred workaround:
+
+- publish a useful demo or technical artifact
+- make the free local plugin easy to try
+- use a clear CTA for async feedback, install attempts, or hosted beta interest
+- ask trusted peers for product reaction without pitching paid work
+- use inbound signals to decide whether to build hosted subscription features
+
+CTA means "call to action." For this project, the CTA should usually be
+low-friction: try the plugin, star/watch the repo, join a hosted beta interest
+list, reply with a real failed-deploy pain point, or ask for a hosted version.
+It should not default to "book a sales call."
+
+The revenue hypothesis is a product subscription later, not consulting hours:
+
+- free plugin earns trust and proves the workflow
+- public content and ClawHub/GitHub discovery create awareness
+- hosted beta captures demand for scheduled summaries, Slack delivery, saved
+  runbooks, team history, and multi-repo visibility
+- paid plans monetize those hosted/team features if enough inbound demand
+  appears
 
 ## Why This Fits Fermin
 
@@ -69,6 +113,7 @@ Current scaffold:
 - tests for GitHub API summary behavior: `test/github-actions.test.js`
 - tests for user-facing markdown shape: `test/format.test.js`
 - reusable product demo walkthrough: `docs/demo-walkthrough.md`
+- passive validation plan: `docs/validation-plan.md`
 
 Current tool:
 
@@ -125,6 +170,9 @@ Current validation:
 - a short demo walkthrough now captures the public demo repo, known failed run,
   expected proof points, read-only safety boundary, talk track, and validation
   questions
+- a passive validation plan now captures the no-active-selling constraint,
+  one-paragraph pitch, demo packet, discovery questions, signal scorecard, and
+  decision rules
 - mocked GitHub API tests now cover a run with multiple failed jobs, separate
   log excerpts, and next-check signals for both 5xx and timeout failures
 
@@ -198,8 +246,8 @@ Restart the Gateway after install/config changes.
 
 ## Next Recommended Work
 
-1. Use the demo walkthrough with 2-3 target users and capture where the summary
-   is clear, vague, or missing the decision-making context they need.
+1. Use the passive validation plan to publish/share the demo artifact and
+   collect async feedback without making active selling the primary motion.
 2. Decide whether the next product iteration should improve summarization depth
    or focus on packaging/content for validation.
 

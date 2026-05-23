@@ -9,10 +9,18 @@ This is the first product-led validation wedge for a ReleaseOps assistant:
 - content/demo artifact
 - later hosted beta for scheduled summaries, saved runbooks, and team history
 
+Business posture: this should not become a consulting or active-sales project.
+The intended validation loop is a useful free plugin, clear demo content,
+low-friction CTAs, async feedback, and inbound hosted-beta interest. Revenue, if
+validated, should come from the product rather than from selling setup hours.
+
 For full project context, see [PROJECT_CONTEXT.md](PROJECT_CONTEXT.md).
 
 For a short reusable demo script, see
 [docs/demo-walkthrough.md](docs/demo-walkthrough.md).
+
+For passive product-led validation, see
+[docs/validation-plan.md](docs/validation-plan.md).
 
 ## First Tool
 

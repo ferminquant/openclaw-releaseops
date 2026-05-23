@@ -10,6 +10,12 @@ from upstream OpenClaw contribution work.
 ## Product Direction
 
 - Product-led path, not consulting-led.
+- Revenue should come from the product, not from selling Fermin's time.
+- Do not make active selling the default plan. Avoid cold outreach, pitch-heavy
+  calls, manual account-by-account sales, or consulting-led discovery unless
+  Fermin explicitly asks for that motion.
+- Preferred validation motion: useful demo/content, async feedback, a clear CTA,
+  inbound interest, and trusted-peer product reactions.
 - First wedge: summarize failed GitHub Actions deploys from chat.
 - First tool stays read-only.
 - Hosted backend comes only after validation.
