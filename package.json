@@ -1,6 +1,6 @@
 {
   "name": "@ferminquant/openclaw-releaseops",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "private": true,
   "description": "OpenClaw ReleaseOps plugin for read-only GitHub Actions deploy triage.",
   "type": "module",
