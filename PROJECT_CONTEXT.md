@@ -183,13 +183,14 @@ Current validation:
   feedback, missing failed-deploy context, and hosted beta interest
 - package metadata includes OpenClaw build compatibility for external ClawHub
   package publishing
-- ClawHub package `@ferminquant/openclaw-releaseops@0.1.2` is published in the
+- ClawHub package `@ferminquant/openclaw-releaseops@0.1.3` is published in the
   community channel and installable with
   `openclaw plugins install clawhub:@ferminquant/openclaw-releaseops`
 - ClawHub inspect at publish time reported release id
-- the ClawHub README was reformatted in `0.1.2` with visible literal hyphen
-  bullets, install steps, demo signals, and shorter sections instead of dense
-  prose
+  `rd7csqgf2zxjg7wckfqr4dx68s87d921`, source commit
+  `34f2856d44e7cd4a9da3e78eb8cf1ed36b02f6e8`, and scan status `pending`
+- the ClawHub README was reformatted in `0.1.3` with Markdown tables because
+  ClawHub currently hides standard Markdown list markers in plugin README pages
 - GitHub repo topics are set on the repository, not on Fermin's profile:
   `openclaw`, `openclaw-plugin`, `github-actions`, `releaseops`, `ci-cd`,
   `devops`, `incident-response`
