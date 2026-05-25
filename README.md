@@ -5,32 +5,32 @@ chat.
 
 ## At A Glance
 
-- **Tool:** `releaseops_failed_deploy_summary`
-- **Purpose:** failed deploy triage from chat
-- **Source:** GitHub Actions workflow runs, jobs, steps, and logs
-- **Mode:** read-only local plugin
-- **Install:** `openclaw plugins install clawhub:@ferminquant/openclaw-releaseops`
-- **Demo repo:** <https://github.com/ferminquant/releaseops-demo-failing-actions>
-- **Public repo:** <https://github.com/ferminquant/openclaw-releaseops>
+\- **Tool:** `releaseops_failed_deploy_summary`<br>
+\- **Purpose:** failed deploy triage from chat<br>
+\- **Source:** GitHub Actions workflow runs, jobs, steps, and logs<br>
+\- **Mode:** read-only local plugin<br>
+\- **Install:** `openclaw plugins install clawhub:@ferminquant/openclaw-releaseops`<br>
+\- **Demo repo:** <https://github.com/ferminquant/releaseops-demo-failing-actions><br>
+\- **Public repo:** <https://github.com/ferminquant/openclaw-releaseops>
 
 ## What It Returns
 
-- failed workflow run
-- failed jobs
-- failed steps
-- useful log excerpts
-- likely-cause summary
-- next-check suggestions
-- rollback checklist stub
+\- failed workflow run<br>
+\- failed jobs<br>
+\- failed steps<br>
+\- useful log excerpts<br>
+\- likely-cause summary<br>
+\- next-check suggestions<br>
+\- rollback checklist stub
 
 ## What It Will Not Do
 
-- trigger deploys
-- rerun workflows
-- execute rollbacks
-- create or mutate GitHub issues
-- modify GitHub state
-- require a hosted backend
+\- trigger deploys<br>
+\- rerun workflows<br>
+\- execute rollbacks<br>
+\- create or mutate GitHub issues<br>
+\- modify GitHub state<br>
+\- require a hosted backend
 
 ## Install From ClawHub
 
@@ -42,18 +42,18 @@ openclaw plugins inspect releaseops --runtime --json
 
 Expected inspect signal:
 
-- plugin id: `releaseops`
-- optional tool: `releaseops_failed_deploy_summary`
+\- plugin id: `releaseops`<br>
+\- optional tool: `releaseops_failed_deploy_summary`
 
 ## Try The Demo
 
 Public demo:
 
-- repo: `ferminquant/releaseops-demo-failing-actions`
-- workflow: `deploy.yml`
-- branch: `main`
-- known failed run:
-  <https://github.com/ferminquant/releaseops-demo-failing-actions/actions/runs/26300685264>
+\- repo: `ferminquant/releaseops-demo-failing-actions`<br>
+\- workflow: `deploy.yml`<br>
+\- branch: `main`<br>
+\- known failed run:
+<https://github.com/ferminquant/releaseops-demo-failing-actions/actions/runs/26300685264>
 
 Prompt:
 
@@ -63,9 +63,9 @@ Use releaseops_failed_deploy_summary to summarize failed GitHub Actions run 2630
 
 Expected summary signals:
 
-- failed job: `deploy-demo-service`
-- failed step: `Deploy to demo environment`
-- clearest log signal: `Simulated deploy endpoint returned HTTP 503`
+\- failed job: `deploy-demo-service`<br>
+\- failed step: `Deploy to demo environment`<br>
+\- clearest log signal: `Simulated deploy endpoint returned HTTP 503`
 
 For the richest demo, make sure the Gateway can see `GITHUB_TOKEN` before
 asking for log excerpts. For a no-token smoke test, change the prompt to
@@ -119,11 +119,11 @@ openclaw gateway restart
 
 Notes:
 
-- `tools.alsoAllow` adds the optional plugin tool to the selected profile.
-- `skills: []` keeps generic GitHub skills from competing with the ReleaseOps
-  tool.
-- OpenClaw currently rejects `tools.allow` and `tools.alsoAllow` in the same
-  scope.
+\- `tools.alsoAllow` adds the optional plugin tool to the selected profile.<br>
+\- `skills: []` keeps generic GitHub skills from competing with the ReleaseOps
+tool.<br>
+\- OpenClaw currently rejects `tools.allow` and `tools.alsoAllow` in the same
+scope.
 
 ## Configure Your Repo
 
@@ -150,14 +150,14 @@ Replace the demo defaults:
 
 GitHub token guidance:
 
-- public repos can work without a token, but rate limits are lower
-- private repos need read-only GitHub access
+\- public repos can work without a token, but rate limits are lower<br>
+\- private repos need read-only GitHub access
 
 Recommended minimum GitHub permissions:
 
-- Actions: read
-- Contents: read
-- Metadata: read
+\- Actions: read<br>
+\- Contents: read<br>
+\- Metadata: read
 
 If the Gateway runs as a systemd user service:
 
@@ -189,28 +189,28 @@ openclaw plugins inspect releaseops --runtime --json
 Feedback is async and public-safe. Please do not paste secrets, private logs,
 customer data, or private incident details.
 
-- [Demo feedback](https://github.com/ferminquant/openclaw-releaseops/issues/new?template=demo-feedback.yml)
-- [Missing failed-deploy context](https://github.com/ferminquant/openclaw-releaseops/issues/new?template=missing-context.yml)
-- [Hosted beta interest](https://github.com/ferminquant/openclaw-releaseops/issues/new?template=hosted-beta-interest.yml)
+\- [Demo feedback](https://github.com/ferminquant/openclaw-releaseops/issues/new?template=demo-feedback.yml)<br>
+\- [Missing failed-deploy context](https://github.com/ferminquant/openclaw-releaseops/issues/new?template=missing-context.yml)<br>
+\- [Hosted beta interest](https://github.com/ferminquant/openclaw-releaseops/issues/new?template=hosted-beta-interest.yml)
 
 ## Product Posture
 
-- product-led, not consulting-led
-- passive validation through useful demo/content and async feedback
-- hosted backend only after validation
+\- product-led, not consulting-led<br>
+\- passive validation through useful demo/content and async feedback<br>
+\- hosted backend only after validation
 
 Possible hosted features later:
 
-- scheduled failed-deploy summaries
-- saved runbooks
-- team release history
-- Slack, Discord, or Telegram delivery
+\- scheduled failed-deploy summaries<br>
+\- saved runbooks<br>
+\- team release history<br>
+\- Slack, Discord, or Telegram delivery
 
 ## More Docs
 
-- [Project context](PROJECT_CONTEXT.md)
-- [Demo walkthrough](docs/demo-walkthrough.md)
-- [Validation plan](docs/validation-plan.md)
-- [ClawHub publishing](docs/clawhub-publishing.md)
-- [Public write-up draft](docs/public-writeup.md)
-- [Passive share kit](docs/share-kit.md)
+\- [Project context](PROJECT_CONTEXT.md)<br>
+\- [Demo walkthrough](docs/demo-walkthrough.md)<br>
+\- [Validation plan](docs/validation-plan.md)<br>
+\- [ClawHub publishing](docs/clawhub-publishing.md)<br>
+\- [Public write-up draft](docs/public-writeup.md)<br>
+\- [Passive share kit](docs/share-kit.md)
