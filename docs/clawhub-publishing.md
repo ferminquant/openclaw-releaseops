@@ -10,10 +10,10 @@ ClawHub so users can install it through OpenClaw's normal plugin flow.
 - source repo: `https://github.com/ferminquant/openclaw-releaseops`
 - plugin id: `releaseops`
 - first tool: `releaseops_failed_deploy_summary`
-- current version: `0.1.1`
+- current version: `0.1.2`
 - channel: `community`
-- source commit: `1401891a3ead69898d933cf7ff3ffeda165e5d51`
-- latest release id: `rd7062dnctjn3jpxdna7z3vzxn87dnq1`
+- source commit: `4029866e30f3137db60fd6a0eebe76dc7f2f3537`
+- latest release id: `rd76k5gsm7chgpc9jg4mgams6987cfds`
 - scan status at publish time: `pending`
 - install command:
 
@@ -32,10 +32,10 @@ npx -y clawhub@latest package publish ferminquant/openclaw-releaseops --dry-run 
 Current status:
 
 - GitHub-source dry-run passed at commit
-  `1401891a3ead69898d933cf7ff3ffeda165e5d51`
+  `4029866e30f3137db60fd6a0eebe76dc7f2f3537`
 - package family: `code-plugin`
 - package name: `@ferminquant/openclaw-releaseops`
-- version: `0.1.1`
+- version: `0.1.2`
 
 ## Publish
 
@@ -64,7 +64,7 @@ openclaw plugins search releaseops
 Expected search result:
 
 ```text
-@ferminquant/openclaw-releaseops  code-plugin | community | v0.1.1
+@ferminquant/openclaw-releaseops  code-plugin | community | v0.1.2
 Install: openclaw plugins install clawhub:@ferminquant/openclaw-releaseops
 ```
 

@@ -183,14 +183,13 @@ Current validation:
   feedback, missing failed-deploy context, and hosted beta interest
 - package metadata includes OpenClaw build compatibility for external ClawHub
   package publishing
-- ClawHub package `@ferminquant/openclaw-releaseops@0.1.1` is published in the
+- ClawHub package `@ferminquant/openclaw-releaseops@0.1.2` is published in the
   community channel and installable with
   `openclaw plugins install clawhub:@ferminquant/openclaw-releaseops`
 - ClawHub inspect at publish time reported release id
-  `rd7062dnctjn3jpxdna7z3vzxn87dnq1`, source commit
-  `1401891a3ead69898d933cf7ff3ffeda165e5d51`, and scan status `pending`
-- the ClawHub README was reformatted in `0.1.1` to start with bullets,
-  install steps, demo signals, and shorter sections instead of dense prose
+- the ClawHub README was reformatted in `0.1.2` with visible literal hyphen
+  bullets, install steps, demo signals, and shorter sections instead of dense
+  prose
 - GitHub repo topics are set on the repository, not on Fermin's profile:
   `openclaw`, `openclaw-plugin`, `github-actions`, `releaseops`, `ci-cd`,
   `devops`, `incident-response`
